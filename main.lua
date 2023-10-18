@@ -30,6 +30,7 @@ end
 -- middle-left for each check every right
 
 local x = 50
+--local tbl = {1, 5, 6, 15, 20, 25, 29, 30, 35, 45, 49, 50, 55}
 local tbl = {1, 5, 6, 15, 20, 25, 25, 29, 30, 35, 45, 49, 50, 55}
 
 function FindMiddle(this, index)
@@ -72,7 +73,8 @@ local function doHalfCheck(tblx, index, valx)
 	local sliceX2 = slice2(tblx, index)
 	if #sliceX2 == 0 then return false, -1 end
 	local mid2 = FindMiddle(sliceX2)
-	local val2 = sliceX[mid2]
+	local val2 = sliceX2[mid2]
+	if not val2 then print(mid2, _dt(sliceX2)) end
 	if valx + val2 == x then
 		return true, val2
 	end
@@ -83,15 +85,19 @@ local function doHalfCheck(tblx, index, valx)
 	return r or l, r and p1 or p2
 end
 
+-- when move more left index = index -1 to include the old value
 
 local index = FindMiddle(tbl)
 local omgs = {}
+local c = 0
 for i = index, 1, -1 do
+	if c > 0 then index = index + 1 end
 	local leftV = tbl[i]
 	--print("Trying "..tostring(leftV))
 	local match, val = doHalfCheck(tbl, index, leftV)
 	if match then
 		omgs[#omgs + 1] = {leftV, val}
 	end
+	c = c + 1
 end
 print(_dt(omgs))
