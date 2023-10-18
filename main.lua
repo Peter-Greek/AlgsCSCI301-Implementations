@@ -88,7 +88,7 @@ end
 -- when move more left index = index -1 to include the old value
 
 local index = FindMiddle(tbl)
-local omgs = {}
+local val_pairs = {}
 local c = 0
 for i = index, 1, -1 do
 	if c > 0 then index = index + 1 end
@@ -96,8 +96,8 @@ for i = index, 1, -1 do
 	--print("Trying "..tostring(leftV))
 	local match, val = doHalfCheck(tbl, index, leftV)
 	if match then
-		omgs[#omgs + 1] = {leftV, val}
+		val_pairs[#val_pairs + 1] = {leftV, val}
 	end
 	c = c + 1
 end
-print(_dt(omgs))
+print(_dt(val_pairs))
